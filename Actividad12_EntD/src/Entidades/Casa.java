@@ -1,5 +1,7 @@
 package Entidades;
 
+import java.util.ArrayList;
+
 public class Casa {
 
 	private Direccion direccion;
@@ -7,11 +9,37 @@ public class Casa {
 	private boolean esSegundaMano;
 	private double cantMetros;
 	private Jardin jardin;
-	private Habitacion habitacion;	
+	private ArrayList<Habitacion>  habitaciones;	
 	
-	/* Se podrá calcular los metros cuadrados de la casa sumando todos los metros cuadrados de sus partes.
-	Se podrá saber si una casa es un chalet o no, una casa es un chalet si tiene jardín asociado.
-	Se podrá saber el precio de una casa con IVA, el precio de una casa con IVA depende de si es de segunda mano o */
+	public int calcularTotalMetros() {
+		int totalMetros = 0;
+		totalMetros += this.cantMetros;
+		totalMetros += jardin.getCantMeTros();
+		for (Habitacion h : habitaciones ) {
+			totalMetros += h.getCantMetros();
+		}		
+		return totalMetros;
+	}
+	
+	public boolean esChalet() {
+		boolean tieneJardin = false;
+		if(this.jardin.cantMetros != 0) {
+			tieneJardin = true;
+		}
+		return tieneJardin;
+	}
+	
+	public double calcularPrecioConIVA() {
+		double precioTotal =0;
+		if(this.esSegundaMano) {
+			precioTotal = this.precio*1.05;
+		}else {
+			precioTotal = this.precio*1.1;
+		}
+		
+		return precioTotal;
+		
+	}
 	
 	public Direccion getDireccion() {
 		return direccion;
@@ -43,17 +71,22 @@ public class Casa {
 	public void setJardin(Jardin jardin) {
 		this.jardin = jardin;
 	}
-	public Habitacion getHabitacion() {
-		return habitacion;
+	
+	public ArrayList<Habitacion> getHabitaciones() {
+		return habitaciones;
 	}
-	public void setHabitacion(Habitacion habitacion) {
-		this.habitacion = habitacion;
+
+	public void setHabitaciones(ArrayList<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
 	}
-	public int calcularTotalMetros() {
-		int totalMetros = 0;
-		
-		
-		return totalMetros;
+
+	@Override
+	public String toString() {
+		return "Casa [direccion=" + direccion + ", precio=" + precio + ", esSegundaMano=" + esSegundaMano
+				+ ", cantMetros=" + cantMetros + ", jardin=" + jardin + ", habitaciones=" + habitaciones + "]";
 	}
+	
+	
+	
 }
 
