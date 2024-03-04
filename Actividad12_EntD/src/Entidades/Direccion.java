@@ -2,10 +2,10 @@
 package Entidades;
 
 public class Direccion {
-	String tipoVia;
-	String nombreVia;
-	String localidad;
-	int CP;
+	private String tipoVia;
+	private String nombreVia;
+	private String localidad;
+	private int CP;
 	
 	@Override
 	public String toString() {
